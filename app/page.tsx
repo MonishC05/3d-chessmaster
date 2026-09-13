@@ -1,8 +1,29 @@
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex flex-1 flex-col bg-zinc-50 font-sans dark:bg-black">
+      <header className="flex h-20 w-full items-center justify-between border-b border-black/[.08] px-6 dark:border-white/[.145] sm:px-10">
+        <span className="text-lg font-semibold tracking-tight">3D ChessMaster</span>
+        <div className="flex items-center gap-3">
+          <Show when="signed-out">
+            <SignInButton>
+              <button className="h-10 rounded-full border border-black/[.12] px-5 text-sm font-medium transition-colors hover:bg-black/[.04] dark:border-white/[.18] dark:hover:bg-white/[.08]">
+                Sign in
+              </button>
+            </SignInButton>
+            <SignUpButton>
+              <button className="h-10 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-85">
+                Sign up
+              </button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
+        </div>
+      </header>
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert h-5 w-[100px]"
