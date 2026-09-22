@@ -12,6 +12,13 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    ".agents/**",
+    ".eve/**",
+    ".output/**",
+    "**/.eve/**",
+    "**/.output/**",
+    "convex/_generated/**",
+    "public/stockfish/**",
   ]),
 ]);
 

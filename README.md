@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3D ChessMaster
 
-## Getting Started
+A realtime 3D chess app built with Next.js 16, Clerk, Convex, Three.js,
+Stockfish, shadcn/ui, and Vercel Eve.
 
-First, run the development server:
+## What is implemented
+
+- Clerk sign-in and protected game routes.
+- Convex-backed player profiles, matchmaking, realtime games, legal move
+  validation, ratings, and tutor usage records.
+- A Three.js board with pointer and keyboard controls.
+- Five Stockfish practice levels using the lightweight browser WebAssembly
+  engine.
+- A signed-in Eve game companion that receives no private board state.
+- A separate Eve AI Tutor whose entire route is guarded by Clerk's
+  `ai_tutor` feature.
+- Clerk Billing with a Free plan and Pro at $9.99/month or $99/year.
+
+## Entitlement architecture
+
+Clerk is the sole authority for plans and Pro access. The Tutor Eve channel
+calls Clerk on every authenticated request and rejects users who do not have
+the `ai_tutor` feature. Convex does not store a plan, subscription status, or
+authoritative entitlement snapshot. It stores only application data such as
+game ownership, tutor sessions, and usage events.
+
+## Requirements
+
+- Node.js 24 or newer (required by Eve)
+- pnpm 10
+- A Clerk app with the `convex` JWT template
+- A Convex deployment
+- Vercel AI Gateway access for deployed Eve agents
+
+## Environment
+
+Copy `.env.example` to `.env.local` and fill in the values. `.env.local` is
+intentionally ignored by Git, so editors may hide or dim it as an ignored
+file. In VS Code, enable **Explorer: Exclude Git Ignore** only if you want
+ignored files hidden; otherwise it appears normally in the Explorer.
+
+The existing local setup requires no extra Convex API key. Convex uses the
+deployment URL in the browser and validates Clerk JWTs through
+`convex/auth.config.ts`.
+
+`CLERK_AUTHORIZED_PARTIES` is strongly recommended in production. Use a
+comma-separated list of the exact app origins that may present Clerk session
+tokens to the Eve services.
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+pnpm exec convex dev
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`pnpm dev` starts Next.js and both named Eve services through `withEve`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm eve:build
+pnpm build
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Stockfish browser assets are licensed under GPLv3. See
+[`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md).

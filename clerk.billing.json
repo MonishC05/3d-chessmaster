@@ -1,0 +1,28 @@
+{
+  "billing": {
+    "features": {
+      "ai_tutor": {
+        "name": "AI Chess Tutor",
+        "description": "Position-aware coaching, visual best-move guidance, and interactive chess lessons.",
+        "include_in_jwt": true,
+        "publicly_visible": true
+      }
+    },
+    "plans": {
+      "pro": {
+        "name": "Pro",
+        "description": "Unlimited access to the visual AI chess tutor.",
+        "amount": 999,
+        "annual_monthly_amount": 825,
+        "currency": "usd",
+        "features": [
+          "ai_tutor"
+        ],
+        "free_trial_enabled": false,
+        "is_recurring": true,
+        "payer_type": "user",
+        "publicly_visible": true
+      }
+    }
+  }
+}
