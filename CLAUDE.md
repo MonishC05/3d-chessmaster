@@ -13,3 +13,8 @@ Convex agent skills for common tasks can be installed by running
 `npx convex ai-files install`.
 
 <!-- convex-ai-end -->
+
+## Continuous project guidance
+
+- Turn reusable user feedback into concise, actionable rules in both `AGENTS.md` and `CLAUDE.md`.
+- Record only lessons that help future work; omit one-off preferences and avoid duplicate guidance.
