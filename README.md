@@ -56,6 +56,8 @@ pnpm dev
 ```
 
 `pnpm dev` starts Next.js and both named Eve services through `withEve`.
+Keep `pnpm exec convex dev` running in a separate terminal while developing so
+Convex can sync backend function and schema changes to the active deployment.
 
 ## Verification
 
